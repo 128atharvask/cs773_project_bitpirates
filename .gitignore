@@ -1,0 +1,5 @@
+.vscode/
+bin/
+traces/
+obj/
+results/
