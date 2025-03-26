@@ -3,3 +3,4 @@ bin/
 traces/
 obj/
 results/
+.DS_Store

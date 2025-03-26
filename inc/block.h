@@ -29,6 +29,10 @@ class BLOCK {
              cpu,
              instr_id;
 
+    // PhantomCache specific fields
+    uint8_t salt_index;  // Index of the salt used for this block's mapping
+    uint64_t candidate_sets[8];  // Array of candidate set indices for this block
+
     // replacement state
     uint32_t lru;
 

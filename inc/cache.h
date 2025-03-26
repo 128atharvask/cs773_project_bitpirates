@@ -119,6 +119,11 @@ class CACHE : public MEMORY {
     uint32_t reads_available_this_cycle;
     uint8_t cache_type;
 
+    // PhantomCache specific fields
+    uint64_t salts[8][2];  // Array of random salts for mapping
+    uint32_t num_candidate_sets;  // Number of candidate sets per address (default 8)
+    bool is_phantom_cache;  // Whether this is a PhantomCache instance
+
     // prefetch stats
     uint64_t pf_requested,
              pf_issued,
@@ -423,6 +428,13 @@ class CACHE : public MEMORY {
 
 
              lru_victim(uint32_t cpu, uint64_t instr_id, uint32_t set, const BLOCK *current_set, uint64_t ip, uint64_t full_addr, uint32_t type);
+
+    // PhantomCache specific functions
+    void initialize_phantom_cache();
+    uint32_t get_candidate_sets(uint64_t address, uint64_t *candidate_sets);
+    uint32_t select_candidate_set(uint64_t *candidate_sets);
+    uint64_t restore_address(uint32_t set, uint32_t way);
+    uint64_t compute_hash(uint64_t input, uint64_t salt_left, uint64_t salt_right);
 };
 
 #endif
